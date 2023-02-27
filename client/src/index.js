@@ -1,13 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {applyMiddleware,combineReducers,createStore}from "redux";
+import {composeWithDevTools}from "redux-devtools-extension"
+import thunk from "redux-thunk";
+import fileReducer from "./fileReducer";
+import userReducer from "./userReducer";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-reportWebVitals();
+
+const rootReducer = combineReducers( reducers,{
+
+    user: userReducer,
+    files: fileReducer,
+
+});
+
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
